@@ -34,7 +34,7 @@ The program must comply with the following rules :
 
 - To be valid, a map must be rectangular, contain 1 exit, 1 starting position and at least 1 collectible, all accessible, surrounded by walls. If any misconfiguration is encountered in the file, the program must exit cleanly, and return "Error\n" followed by an explicit error message of your choice. 
 
-- The program must display an image in a window whose management shall remain smooth (switching to another window, minimizing, ...). The window should close upon pressing the ESC key or clicking on the window's cross, and quit the program in a clean way. 
+- The program must display an image in a window whose management shall remain smooth (switching to another window, minimizing,...). The window should close upon pressing the ESC key or clicking on the window's cross, and quit the program in a clean way. 
 
 - The use of the images from the MiniLibX is mandatory. 
 
