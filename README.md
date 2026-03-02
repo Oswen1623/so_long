@@ -9,11 +9,11 @@ Instructions
 The program must comply with the following rules : 
 
 - Only the following functions are allowed : 
-    • open, close, read, write, malloc, free, perror, strerror, exit 
-    • All functions of the math library (-lm compiler option, man man 3 math) 
-    • All functions of the MiniLibX 
-    • gettimeofday() 
-    • ft_printf and any equivalent we coded
+open, close, read, write, malloc, free, perror, strerror, exit 
+All functions of the math library (-lm compiler option, man man 3 math) 
+All functions of the MiniLibX 
+gettimeofday() 
+ft_printf and any equivalent we coded 
 
 - It should take a map in a .ber format as an argument. The map can be composed of only these 5 characters : 
 0 for an empty space, 
