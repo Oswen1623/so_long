@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/02 11:22:10 by lucinguy          #+#    #+#              #
-#    Updated: 2026/03/02 15:17:22 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/03/02 18:12:39 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ ifeq ($(UNAME), Linux)
 	LFLAGS += -lbsd
 endif
 
-SRCS := \
+SRCS := main.c
 
 OBJS := $(SRCS:.c=.o)
 
@@ -43,12 +43,15 @@ all: $(NAME)
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 # Build MiniLibX library if it doesn't exist
+# Suppress all output from lib compilation ("> /dev/null 2>&1" = both stderr and stdout)
 $(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
+	@$(MAKE) -C $(MLX_DIR) > /dev/null 2>&1
 
 # Link executable: depends on object files and MiniLibX library
 $(NAME): $(OBJS) $(MLX_LIB)
+	@echo "Linking $(NAME)..."
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
+	@echo "✓ $(NAME) compiled successfully!"
 
 # Remove object files and clean MiniLibX build
 clean:

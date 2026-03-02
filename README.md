@@ -42,6 +42,9 @@ The program must comply with the following rules :
 
 MiniLibX provided by 42Paris. 
 
+This guide : 
+https://harm-smits.github.io/42docs/libs/minilibx/prototypes.html#mlx_init 
+
 ## Usage examples 
 
 ```make #Compile the sources``` 
