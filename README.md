@@ -34,5 +34,7 @@ MiniLibX provided by 42Paris.
 
 Usage examples 
 
-```make #Compile the sources 
-./so_long [map.ber] #Run the program with the [map.ber] being the map provided by the user. ```
+``
+make #Compile the sources 
+./so_long [map.ber] #Run the program with the [map.ber] being the map provided by the user.
+z``
