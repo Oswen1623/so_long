@@ -2,20 +2,20 @@ This project has been created as part of the 42 curriculum by lucinguy.
 
 Description 
 
-The goal of this exercise is to create a basic graphic project, using the school's graphical library, MiniLibX. This library includes basic necessary tools to open a window, create images and deal with keyboard and mouse events. We must create a 2D view (top-down or profile) game in which a character must be able to navigate through the map with the WASD or arrow keys, go left, right, up and down, get every collectible before reaching the exit, without going through walls. At every move, the current number of movementsmust be displayed in the shell. 
+The goal of this exercise is to create a basic graphic project, using the school's graphical library, MiniLibX. This library includes basic necessary tools to open a window, create images and deal with keyboard and mouse events. We must create a 2D view (top-down or profile) game in which a character must be able to navigate through the map with the WASD or arrow keys, go left, right, up and down, get every collectible before reaching the exit, without going through walls. At every move, the current number of movements must be displayed in the shell. 
 
 Instructions 
 
 The program must comply with the following rules : 
 
-- Only the following functions are allowed : 
+- Only the following functions are allowed 
 open, close, read, write, malloc, free, perror, strerror, exit, 
 All functions of the math library (-lm compiler option, man man 3 math), 
 All functions of the MiniLibX, 
 gettimeofday(), 
 ft_printf and any equivalent we coded, 
 
-- It should take a map in a .ber format as an argument. The map can be composed of only these 5 characters : 
+- It should take a map in a .ber format as an argument. The map can be composed of only these 5 characters 
 0 for an empty space, 
 1 for a wall, 
 C for a collectible, 
