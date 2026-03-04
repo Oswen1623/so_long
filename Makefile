@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/02 11:22:10 by lucinguy          #+#    #+#              #
-#    Updated: 2026/03/02 18:12:39 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/03/04 18:54:24 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RM      := rm -f
 UNAME   := $(shell uname)
 
 # MiniLibX library configuration
-MLX_DIR := MiniLibx
+MLX_DIR := MiniLibX
 MLX_LIB := $(MLX_DIR)/libmlx.a
 
 # Include paths: project root, MiniLibX, and X11 headers (for XQuartz on macOS)
