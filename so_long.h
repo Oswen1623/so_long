@@ -6,8 +6,9 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:25 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/02 17:12:14 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/03/06 17:13:30 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MiniLibX/mlx.h"
+#include "MiniLibX/mlx_int.h"
