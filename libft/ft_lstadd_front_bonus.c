@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/06 15:36:12 by lucinguy         ###   ########.fr       */
+/*   Created: 2025/11/06 12:04:28 by lucienguyen       #+#    #+#             */
+/*   Updated: 2025/11/09 16:37:20 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	void *oui;
-	void *window;
-	(void)argc;
-	(void)argv;
-	oui = mlx_init();
-	window = mlx_new_window(oui, 432, 432, "test");
-	(void)window;
-	mlx_loop(oui);
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	t_list	*a;
+	t_list	*b;
+
+	a = ft_lstnew("World");
+	b = ft_lstnew("Hello");
+	ft_lstadd_front(&a, b);
+	printf("%s %s\n", (char *)a->content, (char *)a->next->content);
+	free(a->next);
+	free(a);
+	return (0);
+}
+*/

@@ -1,25 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/06 15:36:12 by lucinguy         ###   ########.fr       */
+/*   Created: 2025/11/07 12:12:06 by lucinguy          #+#    #+#             */
+/*   Updated: 2025/11/09 17:25:30 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	void *oui;
-	void *window;
-	(void)argc;
-	(void)argv;
-	oui = mlx_init();
-	window = mlx_new_window(oui, 432, 432, "test");
-	(void)window;
-	mlx_loop(oui);
+	if (!lst || !f)
+		return ;
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }
+/*
+#include <stdio.h>
+
+void	print(void *p)
+{
+	printf("%s\n", (char *)p);
+}
+
+int	main(void)
+{
+	t_list	*a;
+	t_list	*b;
+
+	a = ft_lstnew("Hello");
+	b = ft_lstnew("World");
+	a->next = b;
+	ft_lstiter(a, print);
+	free(b);
+	free(a);
+	return (0);
+}
+*/

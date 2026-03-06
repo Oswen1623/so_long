@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/06 15:36:12 by lucinguy         ###   ########.fr       */
+/*   Created: 2026/03/06 16:33:36 by lucinguy          #+#    #+#             */
+/*   Updated: 2026/03/06 16:34:19 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	void *oui;
-	void *window;
-	(void)argc;
-	(void)argv;
-	oui = mlx_init();
-	window = mlx_new_window(oui, 432, 432, "test");
-	(void)window;
-	mlx_loop(oui);
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (!*needle)
+		return ((char *)haystack);
+	while (haystack[i] != '\0')
+	{
+		if (haystack[i] == needle[0])
+		{
+			while (needle[j] != '\0' && haystack[i + j] == needle[j])
+			{
+				if (needle[j + 1] == '\0')
+					return ((char *)&haystack[i]);
+				j++;
+			}
+		}
+		i++;
+	}
+	return (NULL);
 }

@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/06 15:36:12 by lucinguy         ###   ########.fr       */
+/*   Created: 2025/10/15 20:06:57 by lucinguy          #+#    #+#             */
+/*   Updated: 2025/11/10 15:29:34 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_tolower(int c)
 {
-	void *oui;
-	void *window;
-	(void)argc;
-	(void)argv;
-	oui = mlx_init();
-	window = mlx_new_window(oui, 432, 432, "test");
-	(void)window;
-	mlx_loop(oui);
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	int		c;
+	char	chav;
+	char	chap;
+
+	c = 'A';
+	chav = c;
+	printf("Avant : %c\n", chav);
+	chap = ft_tolower(c);
+	printf("Apres : %c\n", chap);
+}
+*/

@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/06 15:36:12 by lucinguy         ###   ########.fr       */
+/*   Created: 2025/11/25 11:45:38 by lucinguy          #+#    #+#             */
+/*   Updated: 2025/11/27 13:02:45 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv)
+size_t	ft_putchar_fd_pf(char c, int fd)
 {
-	void *oui;
-	void *window;
-	(void)argc;
-	(void)argv;
-	oui = mlx_init();
-	window = mlx_new_window(oui, 432, 432, "test");
-	(void)window;
-	mlx_loop(oui);
+	write(fd, &c, 1);
+	return (1);
+}
+
+size_t	ft_putstr_fd_pf(char *s, int fd)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+	{
+		return (ft_putstr_fd_pf("(null)", fd));
+	}
+	while (s[i])
+	{
+		ft_putchar_fd_pf(s[i], fd);
+		i++;
+	}
+	return (i);
 }

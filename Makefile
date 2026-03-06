@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/02 11:22:10 by lucinguy          #+#    #+#              #
-#    Updated: 2026/03/04 18:54:24 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/03/06 16:25:36 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,15 @@ UNAME   := $(shell uname)
 MLX_DIR := MiniLibX
 MLX_LIB := $(MLX_DIR)/libmlx.a
 
+# Libft library configuration
+LIBFT_DIR := libft
+LIBFT_LIB := $(LIBFT_DIR)/libft.a
+
 # Include paths: project root, MiniLibX, and X11 headers (for XQuartz on macOS)
-INCS    := -I. -I$(MLX_DIR) -I/usr/X11/include
+INCS    := -I. -I$(MLX_DIR) -I$(LIBFT_DIR) -I$(LIBFT_DIR)/ft_printf -I$(LIBFT_DIR)/gnl -I/usr/X11/include
 
 # Link flags: MiniLibX library, X11 libraries (XExt, X11), and math library
-LFLAGS  := -L$(MLX_DIR) -lmlx -L/usr/X11/lib -lXext -lX11 -lm
+LFLAGS  := -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -L/usr/X11/lib -lXext -lX11 -lm
 
 # On Linux: also link against libbsd for BSD utility functions
 ifeq ($(UNAME), Linux)
@@ -43,12 +47,17 @@ all: $(NAME)
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 # Build MiniLibX library if it doesn't exist
-# Suppress all output from lib compilation ("> /dev/null 2>&1" = both stderr and stdout)
+# Hide MLX output on success; print errors if MLX build fails
 $(MLX_LIB):
-	@$(MAKE) -C $(MLX_DIR) > /dev/null 2>&1
+	@$(MAKE) -s --no-print-directory -C $(MLX_DIR) > /dev/null 2> .mlx_build.err || { cat .mlx_build.err; $(RM) .mlx_build.err; exit 1; }
+	@$(RM) .mlx_build.err
+
+# Build libft library
+$(LIBFT_LIB):
+	@$(MAKE) -s --no-print-directory -C $(LIBFT_DIR) > /dev/null
 
 # Link executable: depends on object files and MiniLibX library
-$(NAME): $(OBJS) $(MLX_LIB)
+$(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
 	@echo "Linking $(NAME)..."
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 	@echo "✓ $(NAME) compiled successfully!"
@@ -56,10 +65,12 @@ $(NAME): $(OBJS) $(MLX_LIB)
 # Remove object files and clean MiniLibX build
 clean:
 	$(RM) $(OBJS)
-	$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -s --no-print-directory -C $(LIBFT_DIR) clean > /dev/null
+	@$(MAKE) -s --no-print-directory -C $(MLX_DIR) clean > /dev/null
 
 # Full clean: remove objects, executable, and clean MiniLibX
 fclean: clean
+	@$(MAKE) -s --no-print-directory -C $(LIBFT_DIR) fclean > /dev/null
 	$(RM) $(NAME)
 
 re: fclean all
