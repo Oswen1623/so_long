@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/02 11:22:10 by lucinguy          #+#    #+#              #
-#    Updated: 2026/03/06 16:25:36 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/03/16 20:50:12 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ ifeq ($(UNAME), Linux)
 	LFLAGS += -lbsd
 endif
 
-SRCS := main.c
+SRCS := main.c \
+	map_checker.c \
+	map_checker_utils.c
 
 OBJS := $(SRCS:.c=.o)
 
