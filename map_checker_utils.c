@@ -6,13 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:16:00 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/16 20:53:04 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/03/23 19:35:55 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	line_len(char *s)
+int	line_len(char *s)
 {
 	int	i;
 
@@ -47,60 +47,39 @@ int	check_walls(char *s, int border_line)
 	return (1);
 }
 
-void	map_comp(char *s)
+void	map_comp(char *s, int y, t_game *game)
 {
-	static long	c = 0;
-	static long	e = 0;
-	static long	p = 0;
-	int			i;
+	int	i;
 
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == 'c')
-			c++;
-		if (s[i] == 'e')
-			e++;
-		if (s[i] == 'p')
-			p++;
-		if (e > 1 || p > 1)
+		if (s[i] == 'C')
+			game->count_c++;
+		else if (s[i] == 'E')
+			game->count_e++;
+		else if (s[i] == 'P')
 		{
-			perror("Error.\nIncorrect number of exits and starting positions.");
-			perror("\nPlease make sure your map contains only one of each.\n");
-			return ;
+			game->p_position_x = i;
+			game->p_position_y = y;
+			game->count_p++;
 		}
 		i++;
 	}
 }
 
-int	check_line_format(char *curr_line, char *next_line, int ref)
+int	check_line_format(char *curr_line, char *next_line, int ref, t_game *game)
 {
 	int	border;
 	int	len;
 
 	border = (next_line == NULL);
 	if (!check_walls(curr_line, border))
-		return (perror("Error.\nThe map should be surrounded by walls.\n"), 0);
-	map_comp(curr_line);
+		return (ft_putstr_fd("Error.\nThe map should be surrounded by walls.\n",
+				2), 0);
+	map_comp(curr_line, game->current_y, game);
 	len = line_len(curr_line);
 	if (len != ref)
-		return (perror("Error.\nMap must be a rectangle.\n"), 0);
-	return (1);
-}
-
-int	init_map_rectangle(int mapfiledescriptor, int *ref, char **curr_line)
-{
-	char	*first_line;
-
-	first_line = get_next_line(mapfiledescriptor);
-	if (!first_line)
-		return (perror("Error.\nCannot read file. File might be empty.\n"), 0);
-	*ref = line_len(first_line);
-	if (!check_walls(first_line, 1))
-		return (free(first_line),
-			perror("Error.\nThe map should be surrounded by walls.\n"), 0);
-	map_comp(first_line);
-	free(first_line);
-	*curr_line = get_next_line(mapfiledescriptor);
+		return (ft_putstr_fd("Error.\nMap must be a rectangle.\n", 2), 0);
 	return (1);
 }
