@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 13:34:16 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/23 19:52:20 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/03/27 17:09:55 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,12 @@ static int	flood(char **grid, int x, int y, t_game *game)
 	return (1);
 }
 
-char	**create_grid(const char *mapname, t_game *game)
+static int	read_grid_lines(char **grid, int fd, t_game *game)
 {
-	int		fd;
-	char	*line;
-	char	**grid;
 	int		i;
+	char	*line;
 
 	i = 0;
-	fd = open(mapname, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	grid = malloc(sizeof(char *) * (game->format_y + 1));
-	if (!grid)
-		return (close(fd), NULL);
 	while (i < game->format_y)
 	{
 		line = get_next_line(fd);
@@ -56,18 +48,32 @@ char	**create_grid(const char *mapname, t_game *game)
 		i++;
 	}
 	grid[i] = NULL;
-	close(fd);
-	if (i != game->format_y)
-	{
-		while (i-- > 0)
-			free(grid[i]);
-		free(grid);
+	return (i == game->format_y);
+}
+
+static char	**create_grid(const char *mapname, t_game *game)
+{
+	int		fd;
+	char	**grid;
+
+	fd = open(mapname, O_RDONLY);
+	if (fd < 0)
 		return (NULL);
+	grid = malloc(sizeof(char *) * (game->format_y + 1));
+	if (!grid)
+		return (close(fd), NULL);
+	if (!read_grid_lines(grid, fd, game))
+	{
+		free_grid(grid);
+		return (close(fd), NULL);
 	}
+	close(fd);
 	return (grid);
 }
 
-// Libère la grille allouée
+/*
+** Libère la grille allouée
+*/
 void	free_grid(char **grid)
 {
 	int	i;
@@ -83,7 +89,9 @@ void	free_grid(char **grid)
 	free(grid);
 }
 
-// floodfill principal : copie la map, lance flood, vérifie faisabilité
+/*
+** floodfill principal : copie la map, lance flood, vérifie faisabilité
+*/
 int	floodfill(const char *mapname, t_game *game)
 {
 	char	**grid;
@@ -94,14 +102,13 @@ int	floodfill(const char *mapname, t_game *game)
 	y = game->p_position_y;
 	grid = create_grid(mapname, game);
 	if (!grid)
-		return (ft_putstr_fd("Error.\nFloodfill : map copy failed.\n", 2), 0);
+		return (ft_putstr_fd("Error.\nFloodfill: map copy failed.\n", 2), 0);
 	flood(grid, x, y, game);
 	if (game->collected < game->count_c)
-		return (ft_putstr_fd("Error.\nFloodfill : can't collect all collectibles.\n", 2), 0);
+		return (ft_putstr_fd("Error.\nFloodfill: unreachable collectible.\n",
+				2), 0);
 	if (game->exited != 1)
-		return (ft_putstr_fd("Error.\nFloodfill : can't exit.\n", 2), 0);
-	// Ici, il faudrait vérifier que tous les 'C' et 'E' sont accessibles (plus de 'C' ou 'E' non visités)
-	// À compléter selon la logique du projet
+		return (ft_putstr_fd("Error.\nFloodfill: unreachable exit.\n", 2), 0);
 	free_grid(grid);
 	return (1);
 }

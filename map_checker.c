@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 16:46:14 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/23 19:36:11 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/03/27 17:10:45 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	check_map_counts(t_game *game)
 	}
 	return (1);
 }
-
 
 int	init_map_rectangle(int mapfiledescriptor, int *ref, char **curr_line,
 		t_game *game)
