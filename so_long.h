@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:25 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/23 19:45:48 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/03/31 13:21:10 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	init_map_rectangle(int mapfiledescriptor, int *ref, char **curr_line,
 void	map_rectangle(int mapfiledescriptor, t_game *game);
 int     map_opener(const char *mapname, t_game *game);
 
-char	**create_grid(const char *mapname, t_game *game);
 void	free_grid(char **grid);
 int	floodfill(const char *mapname, t_game *game);
 int	line_len(char *s);
