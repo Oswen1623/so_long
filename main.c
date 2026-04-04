@@ -6,14 +6,56 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/01 18:49:18 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:58:40 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	draw_map(char *map_path, void *mlx, void *win, void *grass,
-		void *water, void *player, int tile_size)
+static void	draw_tile(char c, int x, int y, t_assets *a)
+{
+	int	px;
+	int	py;
+
+	px = x * a->tile;
+	py = y * a->tile;
+	if (c == '1')
+		mlx_put_image_to_window(a->mlx, a->win, a->water, px, py);
+	else
+		mlx_put_image_to_window(a->mlx, a->win, a->grass, px, py);
+	if (c == 'P')
+		mlx_put_image_to_window(a->mlx, a->win, a->player, px, py);
+}
+
+static int	init_assets(t_game *game, t_assets *a)
+{
+	int	size[6];
+
+	a->mlx = mlx_init();
+	if (!a->mlx)
+		return (ft_putstr_fd("Error.\nmlx_init failed.\n", 2), 0);
+	a->grass = mlx_xpm_file_to_image(a->mlx, "./assets/Grass.xpm", &size[0],
+			&size[1]);
+	a->water = mlx_xpm_file_to_image(a->mlx, "./assets/Water.xpm", &size[2],
+			&size[3]);
+	a->player = mlx_xpm_file_to_image(a->mlx, "./assets/Player.xpm", &size[4],
+			&size[5]);
+	if (!a->grass || !a->water || !a->player)
+		return (ft_putstr_fd("Error.\nTexture loading failed.\n", 2), 0);
+	a->tile = size[0];
+	if (size[0] <= 0 || size[0] != size[1] || size[2] != a->tile
+		|| size[3] != a->tile || size[4] != a->tile || size[5] != a->tile)
+		return (ft_putstr_fd("Error.\nTextures must be square and same size.\n",
+				2), 0);
+	a->win = mlx_new_window(a->mlx, game->format_x * a->tile, game->format_y
+			* a->tile, "so_long");
+	if (!a->win)
+		return (ft_putstr_fd("Error.\nmlx_new_window failed.\n", 2), 0);
+	game->game_ins = a->mlx;
+	return (1);
+}
+
+static int	draw_map(char *map_path, t_assets *a)
 {
 	int		fd;
 	int		x;
@@ -30,15 +72,7 @@ static int	draw_map(char *map_path, void *mlx, void *win, void *grass,
 		x = 0;
 		while (line[x] && line[x] != '\n')
 		{
-			if (line[x] == '1')
-				mlx_put_image_to_window(mlx, win, water, x * tile_size, y
-					* tile_size);
-			else
-				mlx_put_image_to_window(mlx, win, grass, x * tile_size, y
-					* tile_size);
-			if (line[x] == 'P')
-				mlx_put_image_to_window(mlx, win, player, x * tile_size, y
-					* tile_size);
+			draw_tile(line[x], x, y, a);
 			x++;
 		}
 		free(line);
@@ -51,25 +85,9 @@ static int	draw_map(char *map_path, void *mlx, void *win, void *grass,
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
-	void	*window;
-	void	*grass;
-	void	*water;
-	void	*player;
-	int		img_width;
-	int		img_height;
-	int		tile_size;
-	int		water_w;
-	int		water_h;
-	int		player_w;
-	int		player_h;
-	char	*grass_path;
-	char	*water_path;
-	char	*player_path;
+	t_game		game;
+	t_assets	assets;
 
-	grass_path = "./assets/Grass.xpm";
-	water_path = "./assets/Water.xpm";
-	player_path = "./assets/Player.xpm";
 	(void)argc;
 	if (!argv[1])
 	{
@@ -80,29 +98,10 @@ int	main(int argc, char **argv)
 	ft_bzero(&game, sizeof(t_game));
 	if (!map_opener(argv[1], &game))
 		return (1);
-	game.game_ins = mlx_init();
-	if (!game.game_ins)
-		return (ft_putstr_fd("Error.\nmlx_init failed.\n", 2), 1);
-	grass = mlx_xpm_file_to_image(game.game_ins, grass_path, &img_width,
-			&img_height);
-	water = mlx_xpm_file_to_image(game.game_ins, water_path, &water_w,
-			&water_h);
-	player = mlx_xpm_file_to_image(game.game_ins, player_path, &player_w,
-			&player_h);
-	if (!grass || !water || !player)
-		return (ft_putstr_fd("Error.\nTexture loading failed.\n", 2), 1);
-	tile_size = img_width;
-	if (img_width <= 0 || img_height <= 0 || img_width != img_height
-		|| water_w != tile_size || water_h != tile_size || player_w != tile_size
-		|| player_h != tile_size)
-		return (ft_putstr_fd("Error.\nTextures must all be square and same size.\n",
-				2), 1);
-	window = mlx_new_window(game.game_ins, game.format_x * tile_size,
-			game.format_y * tile_size, "so_long");
-	if (!window)
-		return (ft_putstr_fd("Error.\nmlx_new_window failed.\n", 2), 1);
-	if (!draw_map(argv[1], game.game_ins, window, grass, water, player,
-			tile_size))
+	if (!init_assets(&game, &assets))
+		return (1);
+	if (!draw_map(argv[1], &assets))
 		return (ft_putstr_fd("Error.\nFailed to draw map.\n", 2), 1);
-	mlx_loop(game.game_ins);
+	mlx_loop(assets.mlx);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:25 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/01 14:50:42 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/04 18:58:40 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ typedef struct s_game
 	int		collected;
 	int		exited;
 }			t_game;
+
+typedef struct s_assets
+{
+	void	*mlx;
+	void	*win;
+	void	*grass;
+	void	*water;
+	void	*player;
+	int		tile;
+}			t_assets;
 
 char		*ft_strstr(const char *haystack, const char *needle);
 int			check_walls(char *s, int border_line);
