@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:25 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/04 18:58:40 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/06 15:13:37 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_assets
 	void	*grass;
 	void	*water;
 	void	*player;
+	void	*exit;
+	void	*collectible;
 	int		tile;
 }			t_assets;
 
@@ -56,6 +58,8 @@ int			init_map_rectangle(int mapfiledescriptor, int *ref,
 				char **curr_line, t_game *game);
 void		map_rectangle(int mapfiledescriptor, t_game *game);
 int			map_opener(const char *mapname, t_game *game);
+int			init_assets(t_game *game, t_assets *a);
+int			draw_map(char *map_path, t_assets *a);
 
 void		free_grid(char **grid);
 int			floodfill(const char *mapname, t_game *game);
