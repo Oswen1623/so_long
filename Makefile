@@ -6,7 +6,7 @@
 #    By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/02 11:22:10 by lucinguy          #+#    #+#              #
-#    Updated: 2026/04/06 15:13:36 by lucinguy         ###   ########.fr        #
+#    Updated: 2026/04/10 14:17:57 by lucinguy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,11 @@ SRCS := main.c \
 	map_checker_utils.c \
 	floodfill.c \
 	graphics.c \
+	map_load.c \
+	map_render.c \
+	controls.c \
+	cleanup.c \
+	image_scale.c \
 
 OBJS := $(SRCS:.c=.o)
 

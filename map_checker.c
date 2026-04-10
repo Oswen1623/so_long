@@ -6,11 +6,25 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 16:46:14 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/27 17:10:45 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:02:57 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	is_ber_file(const char *mapname)
+{
+	int	len;
+
+	if (!mapname)
+		return (0);
+	len = ft_strlen(mapname);
+	if (len < 5)
+		return (0);
+	if (ft_strncmp(mapname + len - 4, ".ber", 4) != 0)
+		return (0);
+	return (1);
+}
 
 static int	check_map_counts(t_game *game)
 {
@@ -46,7 +60,8 @@ int	init_map_rectangle(int mapfiledescriptor, int *ref, char **curr_line,
 		return (free(first_line),
 			ft_putstr_fd("Error.\nThe map should be surrounded by walls.\n", 2),
 			0);
-	map_comp(first_line, 0, game);
+	if (!map_comp(first_line, 0, game))
+		return (free(first_line), 0);
 	free(first_line);
 	*curr_line = get_next_line(mapfiledescriptor);
 	game->format_x = *ref;
@@ -82,7 +97,7 @@ int	map_opener(const char *mapname, t_game *game)
 {
 	int	mapfiledescriptor;
 
-	if (!ft_strstr(mapname, ".ber"))
+	if (!is_ber_file(mapname))
 	{
 		ft_putstr_fd("Error.\nWrong file format. Please use a .ber file.\n", 2);
 		return (0);
@@ -94,6 +109,7 @@ int	map_opener(const char *mapname, t_game *game)
 		return (0);
 	}
 	map_rectangle(mapfiledescriptor, game);
+	gnl_drain_fd(mapfiledescriptor);
 	close(mapfiledescriptor);
 	if (!check_map_counts(game))
 		return (0);

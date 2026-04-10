@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 13:34:16 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/03/27 17:09:55 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/10 15:46:58 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,16 @@ int	floodfill(const char *mapname, t_game *game)
 		return (ft_putstr_fd("Error.\nFloodfill: map copy failed.\n", 2), 0);
 	flood(grid, x, y, game);
 	if (game->collected < game->count_c)
+	{
+		free_grid(grid);
 		return (ft_putstr_fd("Error.\nFloodfill: unreachable collectible.\n",
 				2), 0);
+	}
 	if (game->exited != 1)
+	{
+		free_grid(grid);
 		return (ft_putstr_fd("Error.\nFloodfill: unreachable exit.\n", 2), 0);
+	}
 	free_grid(grid);
 	return (1);
 }
