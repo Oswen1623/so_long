@@ -42,8 +42,9 @@ The program must comply with the following rules :
 
 MiniLibX provided by 42Paris. 
 
-This guide : 
-https://harm-smits.github.io/42docs/libs/minilibx/prototypes.html#mlx_init 
+This guide has been really useful to fully grasp the usage of the mlx library and its graphic functions : https://harm-smits.github.io/42docs/libs/minilibx/prototypes.html#mlx_init 
+
+Regarding the usage of AI, it has been mainly necessary to refactor and clarify some notions encountered in the project, the mlx functions not being very clear at times. I also used AI to customise my Makefile, as I work with both MacOS and Linux/WSL, so I could compile and test my code on both OS, without having compatibility issues.
 
 ## Usage examples 
 
