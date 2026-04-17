@@ -6,12 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:16:00 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/10 16:02:57 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:13:41 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// Calculate line len until \n
 int	line_len(char *s)
 {
 	int	i;
@@ -22,6 +23,7 @@ int	line_len(char *s)
 	return (i);
 }
 
+// Check walls depending on line number
 int	check_walls(char *s, int border_line)
 {
 	int	i;
@@ -47,6 +49,7 @@ int	check_walls(char *s, int border_line)
 	return (1);
 }
 
+// Count number of each special char
 int	map_comp(char *s, int y, t_game *game)
 {
 	int	i;
@@ -74,6 +77,7 @@ int	map_comp(char *s, int y, t_game *game)
 	return (1);
 }
 
+// Check if last line -> if so, line is a border and border = 1
 int	check_line_format(char *curr_line, char *next_line, int ref, t_game *game)
 {
 	int	border;
@@ -91,6 +95,7 @@ int	check_line_format(char *curr_line, char *next_line, int ref, t_game *game)
 	return (1);
 }
 
+// Clean memory
 void	gnl_drain_fd(int fd)
 {
 	char	*line;

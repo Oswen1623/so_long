@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 12:40:04 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/15 15:38:41 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:52:33 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	render_map(t_game *game, t_assets *a)
 		* a->tile, game->p_position_y * a->tile);
 }
 
+//
 int	draw_map(char *map_path, t_game *game, t_assets *a)
 {
 	if (!load_map_grid(map_path, game))

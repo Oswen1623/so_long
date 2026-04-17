@@ -6,12 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 12:40:04 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/15 15:38:32 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:57:24 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// Duplicate the line
 static char	*line_dup_without_nl(char *line)
 {
 	int		len;
@@ -25,6 +26,7 @@ static char	*line_dup_without_nl(char *line)
 	return (copy);
 }
 
+// Read and fill grid (map copy)
 static int	read_grid_lines(int fd, t_game *game)
 {
 	int		i;
@@ -46,6 +48,7 @@ static int	read_grid_lines(int fd, t_game *game)
 	return (1);
 }
 
+// Open map -> allocate char ** -> duplicate without \n and fill grid
 int	load_map_grid(char *map_path, t_game *game)
 {
 	int	fd;

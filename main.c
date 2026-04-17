@@ -6,12 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/17 16:48:36 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:36:02 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// Check arg count and validity
 static int	check_args(int argc, char **argv)
 {
 	if (argc != 2 || !argv[1])
@@ -23,6 +24,7 @@ static int	check_args(int argc, char **argv)
 	return (1);
 }
 
+// Init everything to 0 -> opens map file -> init 
 static int	init_game(char *map, t_game *game, t_assets *assets)
 {
 	ft_bzero(game, sizeof(t_game));
@@ -37,6 +39,7 @@ static int	init_game(char *map, t_game *game, t_assets *assets)
 	return (1);
 }
 
+// Check args -> initialize game struct
 int	main(int argc, char **argv)
 {
 	t_game		game;

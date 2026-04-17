@@ -6,12 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 16:46:14 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/10 16:02:57 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:13:26 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+//Checks that format is .ber
 static int	is_ber_file(const char *mapname)
 {
 	int	len;
@@ -26,6 +27,7 @@ static int	is_ber_file(const char *mapname)
 	return (1);
 }
 
+// Return errors if the counts are wrong
 static int	check_map_counts(t_game *game)
 {
 	if (game->count_p != 1)
@@ -46,6 +48,7 @@ static int	check_map_counts(t_game *game)
 	return (1);
 }
 
+// Check if map is rectangle and surrounded by walls
 int	init_map_rectangle(int mapfiledescriptor, int *ref, char **curr_line,
 		t_game *game)
 {
@@ -68,6 +71,7 @@ int	init_map_rectangle(int mapfiledescriptor, int *ref, char **curr_line,
 	return (1);
 }
 
+// Manage wall checker, line lens checker
 void	map_rectangle(int mapfiledescriptor, t_game *game)
 {
 	int		ref;
@@ -93,6 +97,7 @@ void	map_rectangle(int mapfiledescriptor, t_game *game)
 	game->format_y = game->current_y;
 }
 
+// Open map file -> check format -> check rectangle -> check game elements number -> check if fillable
 int	map_opener(const char *mapname, t_game *game)
 {
 	int	mapfiledescriptor;
@@ -109,7 +114,7 @@ int	map_opener(const char *mapname, t_game *game)
 		return (0);
 	}
 	map_rectangle(mapfiledescriptor, game);
-	gnl_drain_fd(mapfiledescriptor);
+	gnl_drain_fd(mapfiledescriptor); // Clean memory in case map_rectangle stops unexpectedly
 	close(mapfiledescriptor);
 	if (!check_map_counts(game))
 		return (0);

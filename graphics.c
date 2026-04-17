@@ -6,12 +6,13 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 15:07:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/10 14:17:57 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:52:21 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// Associate every image to matching struct element, put images to scale
 static int	load_textures(t_assets *a, int *size)
 {
 	a->grass = mlx_xpm_file_to_image(a->mlx, "./assets/Grass.xpm", &size[0],
@@ -32,6 +33,7 @@ static int	load_textures(t_assets *a, int *size)
 	return (1);
 }
 
+// Create window
 static int	create_window(t_game *game, t_assets *a)
 {
 	a->win = mlx_new_window(a->mlx, game->format_x * a->tile, game->format_y
@@ -42,6 +44,7 @@ static int	create_window(t_game *game, t_assets *a)
 	return (1);
 }
 
+// Create mlx instance -> load textures -> create the window
 int	init_assets(t_game *game, t_assets *a)
 {
 	int	size[10];
