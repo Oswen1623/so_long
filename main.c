@@ -6,7 +6,7 @@
 /*   By: lucinguy <lucinguy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 17:06:34 by lucinguy          #+#    #+#             */
-/*   Updated: 2026/04/10 12:42:59 by lucinguy         ###   ########.fr       */
+/*   Updated: 2026/04/17 16:48:36 by lucinguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main(int argc, char **argv)
 		return (1);
 	ctx.game = &game;
 	ctx.assets = &assets;
-	mlx_hook(assets.win, 2, 1L << 0, handle_keypress, &ctx);
-	mlx_hook(assets.win, 17, 0, handle_destroy, &ctx);
+	mlx_hook(assets.win, 2, 1L << 0, (void *)handle_keypress, &ctx);
+	mlx_hook(assets.win, 17, 0, (void *)handle_destroy, &ctx);
 	mlx_loop(assets.mlx);
 	return (0);
 }
